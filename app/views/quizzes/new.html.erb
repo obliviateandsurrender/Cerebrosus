@@ -1,0 +1,16 @@
+<% provide(:title, 'New Quiz') %>
+<h1>New Quiz</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@quiz) do |f| %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+      <%= hidden_field_tag :subcategories_id, @kitty%>
+      <%= f.submit "Create new Subcategory", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
+
+<%= link_to 'Back', quizzes_path %>

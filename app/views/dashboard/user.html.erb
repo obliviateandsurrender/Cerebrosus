@@ -1,0 +1,12 @@
+<h1>User Dashboard</h1>
+
+<div class="row">
+  <aside class="col-md-4  col-md-offset-2">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for current_user %>
+        <%= current_user.username %>
+      </h1>
+    </section>
+  </aside>
+</div>

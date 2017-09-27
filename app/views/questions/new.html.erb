@@ -1,0 +1,32 @@
+<% provide(:title, 'New Quiz') %>
+<h1>New Question</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@question) do |f| %>
+      <%= f.label :format %>
+      <%= f.select :format, options_for_select(["Text", "Image", "Video"]),{} %>
+      <p> Title will contain either the body of your question and asset the name of the external media (present in assets folder) if question is not text type.</p>
+      <%= f.label :title %>
+      <%= f.text_field :body, class: 'form-control' %>
+      <%= f.label :asset %>
+      <%= f.text_field :asset, class: 'form-control' %>
+      <p> Enter your options for the provided question here: </p>
+      <%= f.label :option1 %> 
+      <%= f.text_field :option1, class: 'form-control' %>
+      <%= f.label :option2 %>
+      <%= f.text_field :option2, class: 'form-control' %>
+      <%= f.label :option3 %>      
+      <%= f.text_field :option3, class: 'form-control' %>
+      <%= f.label :option4 %>
+      <%= f.text_field :option4, class: 'form-control' %>
+      <p> Select your answer(s) to your question here: </p>
+      <%= f.label :answer %>
+      <%= f.select :answer, options_for_select(["1", "2", "3", "4"]),{} ,{ multiple: true}%>
+      <%= hidden_field_tag :quiz_id, @kitty%>
+      <%= f.submit "Create new question", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
+
+<%= link_to 'Back', quizzes_path %>

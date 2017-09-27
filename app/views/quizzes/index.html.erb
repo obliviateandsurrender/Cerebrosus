@@ -1,0 +1,47 @@
+<h1>Quizzes</h1>
+<div class="col-md-6 col-md-offset-3">
+<table class="table-striped center table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Parent Subcategory</th>
+      <%if !current_user.admin %>
+      <th>Score</th>
+      <%end%>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quiz.each do |quiz| %>
+    <% @ans = @subcategories.select{ |element| element[:id] == quiz.subcategories_id }.first %>
+    
+      <tr>
+        <%if current_user.admin %>
+        <td><%= link_to quiz.title, quiz %></td>
+        <td><%= link_to @ans.title, '/subcategories/'+quiz.subcategories_id.to_s%>
+        <td><%= link_to 'Edit', edit_quiz_path(quiz) %></td>
+        <td><%= link_to 'Destroy', quiz, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Leaderboard', '/leaderboard/quiz?qid='+quiz.id.to_s%></td>
+        <%end%>
+        <%if !current_user.admin %>
+        <td><%= quiz.title %></td>        
+        <td><%= link_to @ans.title, '/subcategories/'+quiz.subcategories_id.to_s%>        
+        <% @ans = @attempted.select{ |element| element[:quizzes_id] == quiz.id }.first %>
+        <% if @ans %>
+        <td><%= @ans.score%></td>
+        <td><%= link_to 'Reattempt', arenas_path(:qid => quiz) %></td>
+        <%else%>
+        <td> - </td>
+        <td><%= link_to 'Attempt', arenas_path(:qid => quiz) %></td>
+        <% end %>
+        <td><%= link_to 'Leaderboard', '/leaderboard/quiz?qid='+quiz.id.to_s%></td>   
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>      
+</table>
+</div>
+<br>
+<br/>
+<%= link_to 'Back', dashboard_path %>
+<br/>

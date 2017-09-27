@@ -1,0 +1,63 @@
+   
+    <%= javascript_tag do %>
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Attempt', 'Number of Questions'],
+          ['Wrong Attempts',<%= @wa%>],
+          ['Right Attempts', <%= @ra%>],
+          ['Not Attempted', <%= @na%>],
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Your Performance Analysis',
+            subtitle: 'Are you proud?',
+          },
+           'vAxis': {'title': 'Something Here',
+            'minValue': 10, 
+            'maxValue': 10},
+          bars: 'vertical', // Required for Material Bar Charts.
+           axes: {
+            x: {
+              0: { side: 'down', label: 'Attempts'} // Top x-axis.
+            },
+            y: {
+              0: { side: 'left', label: 'Number'},
+                 all: {
+                    range: {
+                        max: 10,
+                        min: 0
+                    }
+                 }
+            }
+          },
+
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+     <% end -%>
+   
+   <h1>Result Arena</h1>
+   <div class="col-md-6 col-md-offset-3 center jumbotron">
+   <p> Title: <%= @quiz.title%> </p> 
+   <p> Category: <%= @category.title%></p>
+   <p> Subcategory: <%= @subcategory.title %> </p>
+   <p> Score: <%= @score%> / <%= 10*@questions.count%>  </p>
+   <br/>
+   <br/>
+   <%= link_to 'Reattempt the Quiz', '/arenas/quiz?qid=' +@quiz.id.to_s , class: "btn btn-lg btn-primary"%>
+   <br/>
+   <br/>
+   <%= link_to 'Back', quizzes_path, class: "btn btn-lg" %>
+   </div>
+   <div class="col-md-6 col-md-offset-3 center jumbotron">
+   <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+   </div>
+
+    

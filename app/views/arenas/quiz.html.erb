@@ -1,0 +1,82 @@
+   <div class="col-md-8 col-md-offset-2">
+    <% if @questions.any? %>
+        <% i = 0 %>
+        <% @questions.each do |question| %>
+        <% @ans = @answered.select{ |element| element[:questions_id] == question.id }.first %>
+        <% if !@ans %>
+            <% @ans = @answers[i] %>
+            <% end %>
+            <%= form_for(@answers[i]) do |f| %>
+                <table class="center table-hover" style="border-collapse: collapse;">
+                <td colspan=2 align="left"><%= 'Question: ' + (i+1).to_s%></a></td>
+                <div>
+                <%if question.format == 'Image'%>
+                <tr rowspan = 2>    
+                <td colspan = 2> <%= image_tag question.asset, height: '250', width: '250' %> </td>
+                </tr>
+                <%end%>
+                <%if question.format == 'Video'%>
+                <tr rowspan = 2>    
+                <td colspan = 2> <%= video_tag question.asset, height: '250', width: '250', :controls => true %> </td>
+                </tr>
+                <%end%>  
+                </div>              
+                <tr>
+                </tr>
+                <tr rowspan=2 >
+                <td colspan=2 >  <%= question.body %> </td>
+                </tr>
+                <%if !question.multiple %>
+                    <tr>
+                    <td>  <%= f.radio_button :answer, question.option1, value: question.option1, class: 'answer form-control', :checked => (@ans.answer == '1')%> </td>
+                    <td>  <%= label :option1,question.option1 %> </td>
+                    <tr>
+                    </tr>
+                    <td>  <%= f.radio_button :answer, question.option2, value: question.option2, class: 'answer form-control', :checked => (@ans.answer == '2')%> </td>
+                    <td>  <%= label :option2, question.option2 %> </td>
+                    </tr>
+                    <tr>
+                    <td>  <%= f.radio_button :answer, question.option3, value: question.option3, class: 'answer form-control', :checked => (@ans.answer == '3')%> </td>
+                    <td>  <%= label :option3, question.option3 %> </td>
+                    </tr>
+                    <tr>
+                    <td>  <%= f.radio_button :answer, question.option4, value: question.option4, class: 'answer form-control', :checked => (@ans.answer == '4')%> </td>
+                    <td>  <%= label :option4, question.option4 %> </td>
+                <%else%>
+                    <tr>
+                    <td>  <%= f.check_box 'answer1', value: question.option1, class: 'answer form-control', :checked => (@ans.answer == '1' || @ans.answer == '12' || @ans.answer == '13'|| @ans.answer == '14' || @ans.answer == '123' || @ans.answer == '124' || @ans.answer == '134' ||@ans.answer == '1234' ) %> </td>
+                    <td>  <%= label :option1,question.option1 %> </td>
+                    <tr>
+                    </tr>
+                    <td>  <%= f.check_box 'answer2', value: question.option2, class: 'answer form-control', :checked => (@ans.answer == '2' || @ans.answer == '12' || @ans.answer == '23'|| @ans.answer == '24' || @ans.answer == '123' || @ans.answer == '124' || @ans.answer == '234' ||@ans.answer == '1234')%> </td>
+                    <td>  <%= label :option2, question.option2 %> </td>
+                    </tr>
+                    <tr>
+                    <td>  <%= f.check_box 'answer3', value: question.option3, class: 'answer form-control', :checked => (@ans.answer == '3' || @ans.answer == '23' || @ans.answer == '34'|| @ans.answer == '13' || @ans.answer == '123' || @ans.answer == '234' || @ans.answer == '134' ||@ans.answer == '1234')%> </td>
+                    <td>  <%= label :option3, question.option3 %> </td>
+                    </tr>
+                    <tr>
+                    <td>  <%= f.check_box 'answer4', value: question.option4, class: 'answer form-control', :checked => (@ans.answer == '4' || @ans.answer == '24' || @ans.answer == '34'|| @ans.answer == '14' || @ans.answer == '234' || @ans.answer == '124' || @ans.answer == '134' ||@ans.answer == '1234')%> </td>
+                    <td>  <%= label :option4, question.option4 %> </td>
+                    </tr>
+                <%end%>
+                </table>
+                <%= hidden_field_tag :question_id, question.id%>
+                <%= f.submit "Save Response", class: "button" %>
+            <% end %>   
+
+            <% i+=1 %>
+
+            <%= form_for @answers[i-1], :url => '/reset' do |f|%>
+            <%= hidden_field_tag :question_id, question.id%>
+            <%= f.submit "Reset", class: "button" %>
+            <%end%>
+            <br/> <br/> <br/> <br/> 
+
+        <% end %>
+        <p align="right"><%= link_to "Check Result", '/result?qid='+@quiz.id.to_s, class: "btn  btn-success"%></p>
+        <br/> <br/>
+        <br/> <br/>
+    <% end %>
+  </div>
+<script>

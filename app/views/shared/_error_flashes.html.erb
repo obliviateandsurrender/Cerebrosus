@@ -1,0 +1,15 @@
+<% if flash.any? %>
+<div id="error_explanation">
+  <ul>
+    <div class="alert alert-danger">
+        <% flash.each do |key, value|
+        if value.class == String # regular flash notices, alerts, etc. will be strings
+          value = [value]
+        end
+        value.each do |value| %>
+          <li><%= content_tag(:p, value, :class => "flash #{key}") unless value.empty? %> <% end %></li>
+        <% end %>
+    </div>
+  </ul>
+</div>
+<%end%>

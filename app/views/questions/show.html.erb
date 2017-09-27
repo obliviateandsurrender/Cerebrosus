@@ -1,0 +1,38 @@
+
+<p>
+  <div class="col-md-8 col-md-offset-2">
+  <table class="table-striped center table-hover">
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Option 1</th>
+      <th>Option 2</th>
+      <th>Option 3</th>
+      <th>Option 4</th>
+      <th>Is Multiple?</th>
+      <th>Answer </th>
+      <th>Format</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @question.body%></td>
+        <td><%= @question.option1%></td>
+        <td><%= @question.option2%></td>
+        <td><%= @question.option3%></td>
+        <td><%= @question.option4%></td>
+        <td><%= @question.multiple%></td>
+        <td><%= @question.answer%></td>
+        <td><%= @question.format%></td>      
+      </tr>
+  </tbody>      
+  </table>
+  </div>
+</p>
+<div>
+<%= link_to 'Edit', edit_question_path(@question) %> <br/>
+<%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' } %>
+<br/>
+<%= link_to 'Back', '/quizzes/'+ @question.quizzes_id.to_s  %>
+</div>

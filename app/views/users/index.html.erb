@@ -1,0 +1,41 @@
+  <h1>User Index</h1>
+<div class="col-md-6 col-md-offset-3">
+<table class="table-striped center table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Username</th>
+      <th></th>
+      <th></th>
+      <th>Is Admin?</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= gravatar_for(user) %></td>
+        <td><%= link_to user.name, user %></td>
+        <td><%= user.email%>
+        <td><%= user.username%>
+        <%if current_user == user || current_user.admin%>
+        <td><%=link_to 'Edit', edit_user_path(user) %></td>
+        <%end%>
+        <%if current_user.admin %>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user.admin%>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>      
+</table>
+</div>
+<br>
+<br/>
+<%= link_to 'Back', dashboard_path %>
+<br/>
+<%if current_user.admin %>
+<%= link_to 'New User', new_user_path %>
+<%end%>

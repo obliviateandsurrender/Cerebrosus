@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  updated_at: 2017-09-13 23:08:09
+  is_playable: false
+
+two:
+  title: MyString
+  updated_at: 2017-09-13 23:08:09
+  is_playable: false

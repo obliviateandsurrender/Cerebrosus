@@ -1,0 +1,17 @@
+
+<% provide(:title, 'Update Subcategory') %>
+<h1> Update Subcategory </h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@subcategory) do |f| %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+      <%= hidden_field_tag :categories_id, @kitty%>
+      <%= f.submit "Update new Subcategory", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Show', @subcategory %> |
+<%= link_to 'Back', subcategories_path %>

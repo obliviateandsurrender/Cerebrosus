@@ -1,0 +1,28 @@
+<h1>Questions</h1>
+<div class="col-md-6 col-md-offset-3">
+<table class="table-striped center table-hover">
+  <thead>
+    <tr>
+      <th>Questions</th>
+      <th>Parent Quiz</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <%if current_user.admin %>
+        <td><%= link_to question.body, question %></td>
+        <td><%= link_to 'Quiz', '/quizzes/'+question.quizzes_id.to_s %>
+        <td><%= link_to 'Edit', edit_question_path(question) %></td>
+        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>      
+</table>
+</div>
+<br>
+<br/>
+<%= link_to 'Back', dashboard_path%>

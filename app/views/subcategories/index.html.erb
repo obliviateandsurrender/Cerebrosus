@@ -1,0 +1,30 @@
+<h1>Subcategories</h1>
+<div class="col-md-6 col-md-offset-3">
+<table class="table-striped center table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Parent Category</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subcategory.each do |subcategory| %>
+     <% @ans = @categories.select{ |element| element[:id] == subcategory.categories_id }.first %> 
+      <tr>
+        <td><%= link_to subcategory.title, subcategory %></td>
+        <td><%= link_to @ans.title, '/categories/'+subcategory.categories_id.to_s%>
+        <%if current_user.admin%>
+        <td><%= link_to 'Edit', edit_subcategory_path(subcategory) %></td>
+        <td><%= link_to 'Destroy', subcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+        <td><%= link_to 'Leaderboard', '/leaderboard/subcategory?sid='+subcategory.id.to_s%></td>
+      </tr>
+    <% end %>
+  </tbody>      
+</table>
+</div>
+<br>
+<br/>
+<%= link_to 'Back', dashboard_path %>
+<br/>
