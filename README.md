@@ -1,6 +1,6 @@
 # Cerebrosus
 
-------
+
 
 ## Overview
 
@@ -24,7 +24,7 @@ A Ruby on Rails based state restoring quiz app.
 9. There  is  a  leaderboard  for  the  users  in  each  genre, each
    sub-genre and each quiz.
 10. The  admin  has a  separate  page  with  access  to  all  the  questions
-    and  leaderboard  data.  Also  the  data  of  users.  (CRUD  for  admin)
+   and  leaderboard  data.  Also  the  data  of  users.  (CRUD  for  admin)
 11. The  users  have  an  option  of  viewing  which  quizzes  they  have
     attempted/not-attempted  and  the  respective  scores  in  each  quiz and edit their
     respective profile details.  (CRUD for  User) 
